@@ -12,3 +12,14 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=production
+    depends_on:
+      - tests
+    
+  tests:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - /app/node_modules
+    entrypoint: ["npm", "test"]

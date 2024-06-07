@@ -1,14 +1,14 @@
+import React from "react";
 import {
   FluentProvider,
-  Caption1,
   Card,
   CardHeader,
   Body1,
-  webLightTheme,
-  CardFooter,
-  Button,
+  Caption1,
   Select,
   Input,
+  CardFooter,
+  Button,
 } from "@fluentui/react-components";
 import { ConvertRangeRegular } from "@fluentui/react-icons";
 import "./App.css";
@@ -33,18 +33,26 @@ const option = [
 export default function App() {
   const [temperatureType, setTemperatureType] = useState("celcius");
   const [temperatureInput, setTemperatureInput] = useState(0);
-  const [temperature, handleTemperature] = useConverter(temperatureInput, temperatureType);
+  const [temperature, handleTemperature] = useConverter(
+    temperatureInput,
+    temperatureType
+  );
+
+  // Fallback values for environment variables in case import.meta.env is not available (e.g., during testing)
+  const webTitle = import.meta.env.VITE_WEB_TITLE || "Temperature Converter";
+  const webDescription = import.meta.env.VITE_WEB_DESCRIPTION;
+  ("Convert temperatures between Celcius and Fahrenheit");
 
   return (
     <FluentProvider theme={webLightTheme}>
-      <Card style={{width: 400}}>
+      <Card style={{ width: 400 }}>
         <CardHeader
           header={
             <Body1>
-              <b>{import.meta.env.VITE_WEB_TITLE}</b>
+              <b>{webTitle}</b>
             </Body1>
           }
-          description={<Caption1>{import.meta.env.VITE_WEB_DESCRIPTION}</Caption1>}
+          description={<Caption1>{webDescription}</Caption1>}
         />
         <Select onChange={({ target }) => setTemperatureType(target.value)}>
           {option.map((selection, index) => (
